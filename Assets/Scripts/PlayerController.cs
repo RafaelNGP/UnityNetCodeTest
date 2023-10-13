@@ -1,9 +1,10 @@
 using UnityEngine;
 using Unity.Netcode;
 using Unity.Netcode.Components;
+using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 
 [RequireComponent(typeof(NetworkObject))]
-[RequireComponent(typeof(NetworkTransform))]
+[RequireComponent(typeof(ClientNetworkTransform))]
 
 public class PlayerController : NetworkBehaviour
 {
