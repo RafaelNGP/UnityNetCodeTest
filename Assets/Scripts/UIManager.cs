@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_InputField codeArea;
     [SerializeField] private Button physicsButton;
     [SerializeField] TextMeshProUGUI playerInGameText;
+    [SerializeField] TextMeshProUGUI serverCode;
 
     [SerializeField] private SpawnerController spawnerController;
     [SerializeField] private RelayManager relayManager;
@@ -39,19 +40,20 @@ public class UIManager : MonoBehaviour
 
             if (NetworkManager.Singleton.StartHost()){
                 Debug.Log("Host started...");
+                serverCode.text += relayManager.GetJoinCode();
             } else{
                 Debug.LogError("Host was not started!");
             }
         });
 
-        startServerButton.onClick.AddListener(() =>
+        /*startServerButton.onClick.AddListener(() =>
         {
             if (NetworkManager.Singleton.StartServer()){
                 Debug.Log("Server started...");
             } else{
                 Debug.LogError("Server was not started!");
             }
-        });
+        });*/
 
         startClientButton.onClick.AddListener(async() =>
         {
@@ -64,6 +66,7 @@ public class UIManager : MonoBehaviour
             if (NetworkManager.Singleton.StartClient())
             {
                 Debug.Log("Client started...");
+                serverCode.text += codeArea.text;
             } else{
                 Debug.LogError("Client was not started!");
             }
@@ -74,12 +77,12 @@ public class UIManager : MonoBehaviour
             hasServerStarted = true;
         };
 
-        physicsButton.onClick.AddListener(() =>
+        /*physicsButton.onClick.AddListener(() =>
         {
             if (!hasServerStarted) return;
 
             spawnerController.LaunchObjects();
-        });
+        });*/
     }
 
     public void hideUI()

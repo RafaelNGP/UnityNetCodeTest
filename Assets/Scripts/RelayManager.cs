@@ -14,6 +14,7 @@ public class RelayManager : MonoBehaviour
     [SerializeField] NetworkManager networkManager;
     [SerializeField] private string environment = "production";
     [SerializeField] private int maxConnections = 10;
+    [SerializeField] private string joinCode;
 
     public bool IsRelayEnabled => Transport != null && Transport.Protocol == UnityTransport.ProtocolType.RelayUnityTransport;
 
@@ -66,6 +67,7 @@ public class RelayManager : MonoBehaviour
         relayHostData.JoinCode = await Relay.Instance.GetJoinCodeAsync(relayHostData.AllocationID);
         Transport.SetRelayServerData(relayHostData.IPV4Address, relayHostData.Port, relayHostData.AllocationIDBytes, relayHostData.Key, relayHostData.ConnectionData);
         Debug.Log($"Join code: {relayHostData.JoinCode}");
+        joinCode = relayHostData.JoinCode;
         return relayHostData;
     }
 
@@ -96,6 +98,11 @@ public class RelayManager : MonoBehaviour
         
         Debug.Log($"Joined room with code: {relayJoinData.JoinCode}");
         return relayJoinData;
+    }
+
+    public string GetJoinCode()
+    {
+        return joinCode;
     }
 
 }
